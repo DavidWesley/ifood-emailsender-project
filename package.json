@@ -1,7 +1,7 @@
 {
-  "name": "config-template",
+  "name": "email-sender",
   "version": "0.0.1",
-  "description": "Inicializar um repositório com todas as configurações necessárias",
+  "description": "Simple conceptual email sender written in Typescript",
   "private": "true",
   "type": "module",
   "scripts": {
@@ -16,7 +16,7 @@
     "email": "contato.dwesley@outlook.com",
     "url": "https://github.com/DavidWesley"
   },
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^17.8.0",
     "@commitlint/config-conventional": "^17.8.0",
