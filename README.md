@@ -1,2 +1,3 @@
-# node-config-template
-Inicializar um repositório com todas as configurações necessárias
+# Emailsender
+
+Simple conceptual email sender written in Typescript
