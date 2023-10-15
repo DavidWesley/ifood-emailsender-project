@@ -2,7 +2,7 @@ import { database } from "@/lib/db/db.ts"
 import { CustomerModel } from "@/lib/db/models/customers.ts"
 import { sendEmail } from "@/lib/email.ts"
 
-import { getWeekDayFullName } from "@/utils/dates.ts"
+import { getWeekDayFullName, isFirstDateInPreviousMonth } from "@/utils/dates.ts"
 import { generateEmailBody } from "@/utils/emails.ts"
 import { populateCustomers } from "@/utils/seed.ts"
 
@@ -10,11 +10,15 @@ function main(): void {
     // Generate some random customers
     populateCustomers(10)
 
+    // Mon Oct 16 2023 12: 30:00 GMT-0300 (Horário Padrão de Brasília)
+    const date = new Date(2023, 9, 16, 12, 30, 0) // Monday
+
     // Get the customers table who accept the subscription
     const customers: CustomerModel[] = database.customers
         .select({
             filters: {
-                subscriptionTier: (value: string) => value === "true"
+                subscriptionTier: (value: string) => value === "true",
+                lastVisitAt: (value: string) => isFirstDateInPreviousMonth(value, date.toISOString())
             }
         })
         .map((customer) => {
@@ -24,9 +28,6 @@ function main(): void {
                 subscriptionTier: customer.get("subscriptionTier")!
             } as CustomerModel
         })
-
-    // Mon Oct 16 2023 12: 30:00 GMT-0300 (Horário Padrão de Brasília)
-    const date = new Date(2023, 9, 16, 12, 30, 0) // Monday
 
     const weekdayFullName = getWeekDayFullName(date, "pt-BR").toLowerCase().trim()
 
