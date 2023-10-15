@@ -9,8 +9,8 @@ import { createRandomVehicle } from "@/utils/create-vehicles.ts"
  * @return {void} This function does not return anything.
  */
 export const populateCustomers = (quantity: number): void => {
-    if (quantity < 1 || quantity > 1e6) {
-        throw new RangeError("count must be between 1 and 1e6 (inclusive)")
+    if (quantity < 1 || quantity > 1e4) {
+        throw new RangeError("count must be between 1 and 1e4 (inclusive)")
     }
 
     for (let i = 0; i < quantity; i += 1) {
