@@ -18,14 +18,10 @@ function main(): void {
             filters: {
                 subscriptionTier: (value: string) => value === "true",
                 lastVisitAt: (value: string) => isFirstDateInPreviousMonth(value, date.toISOString())
-            }
+            },
+            columns: ["name", "email"]
         })
-        .map((customer) => {
-            return {
-                name: customer.get("name")!,
-                email: customer.get("email")!
-            } satisfies SendEmailBodyProps["customer"]
-        })
+        .map((customer) => Object.fromEntries(customer) as SendEmailBodyProps["customer"])
 
     const weekdayFullName = getWeekDayFullName(date, "pt-BR").toLowerCase().trim()
 
