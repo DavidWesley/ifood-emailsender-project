@@ -1,28 +1,28 @@
 import { database } from "@/lib/db/db.ts"
-import { ClientModel } from "@/lib/db/models/clients.ts"
+import { CustomerModel } from "@/lib/db/models/customers.ts"
 import { sendEmail } from "@/lib/email.ts"
 
 import { getWeekDayFullName } from "@/utils/dates.ts"
 import { generateEmailBody } from "@/utils/emails.ts"
-import { populateClients } from "@/utils/seed.ts"
+import { populateCustomers } from "@/utils/seed.ts"
 
 function main(): void {
-    // Generate some random clients
-    populateClients(10)
+    // Generate some random customers
+    populateCustomers(10)
 
-    // Get the clients table who accept the subscription
-    const clients: ClientModel[] = database.clients
+    // Get the customers table who accept the subscription
+    const customers: CustomerModel[] = database.customers
         .select({
             filters: {
                 subscriptionTier: (value: string) => value === "true"
             }
         })
-        .map((client) => {
+        .map((customer) => {
             return {
-                name: client.get("name")!,
-                email: client.get("email")!,
-                subscriptionTier: client.get("subscriptionTier")!
-            } as ClientModel
+                name: customer.get("name")!,
+                email: customer.get("email")!,
+                subscriptionTier: customer.get("subscriptionTier")!
+            } as CustomerModel
         })
 
     // Mon Oct 16 2023 12: 30:00 GMT-0300 (Horário Padrão de Brasília)
@@ -30,13 +30,13 @@ function main(): void {
 
     const weekdayFullName = getWeekDayFullName(date, "pt-BR").toLowerCase().trim()
 
-    // Trigger emails to clients on the selected date and weekday
+    // Trigger emails to customers on the selected date and weekday
     if (weekdayFullName === "segunda-feira") {
-        clients.forEach((client) => {
+        customers.forEach((customer) => {
             const result = sendEmail(
-                client.email,
+                customer.email,
                 "Novidades e Ofertas Especiais da CarStore esta Semana!",
-                generateEmailBody({ client })
+                generateEmailBody({ customer })
             )
 
             console.log(result.status + ": " + result.message)

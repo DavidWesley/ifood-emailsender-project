@@ -1,5 +1,5 @@
-import { clients } from "./models/clients.ts"
+import { customers } from "@/lib/db/models/customers.ts"
 
 export const database = {
-    clients
+    customers
 }

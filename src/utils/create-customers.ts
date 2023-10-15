@@ -1,7 +1,7 @@
 import { faker } from "@/lib/faker.ts"
-import type { ClientModel } from "@/lib/db/models/clients.ts"
+import type { CustomerModel } from "@/lib/db/models/customers.ts"
 
-export function createRandomClient(): ClientModel {
+export function createRandomCustomer(): CustomerModel {
     const person = faker.person
 
     const options = {

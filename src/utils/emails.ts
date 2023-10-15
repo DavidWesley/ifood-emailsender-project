@@ -1,13 +1,13 @@
-import type { ClientModel } from "@/lib/db/models/clients.ts"
+import type { CustomerModel } from "@/lib/db/models/customers.ts"
 import { EOL } from "node:os"
 
 export interface SendEmailBodyProps {
-    client: ClientModel
+    customer: CustomerModel
 }
 
 export const generateEmailBody = (data: SendEmailBodyProps): string => {
     const template = `
-        Prezado(a) ${data.client.name},
+        Prezado(a) ${data.customer.name},
 
         Esperamos que este e-mail o encontre bem.
         Agradecemos por ter visitado uma de nossas lojas no último mês e por fazer parte da nossa família CarStore.
