@@ -2,7 +2,7 @@ import type { CustomerModel } from "@/lib/db/models/customers.ts"
 import { EOL } from "node:os"
 
 export interface SendEmailBodyProps {
-    customer: CustomerModel
+    customer: Pick<CustomerModel, "name" | "email">
 }
 
 export const generateEmailBody = (data: SendEmailBodyProps): string => {

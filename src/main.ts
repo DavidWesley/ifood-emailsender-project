@@ -1,9 +1,8 @@
 import { database } from "@/lib/db/db.ts"
-import { CustomerModel } from "@/lib/db/models/customers.ts"
 import { sendEmail } from "@/lib/email.ts"
 
 import { getWeekDayFullName, isFirstDateInPreviousMonth } from "@/utils/dates.ts"
-import { generateEmailBody } from "@/utils/emails.ts"
+import { SendEmailBodyProps, generateEmailBody } from "@/utils/email-helpers.ts"
 import { populateCustomers } from "@/utils/seed.ts"
 
 function main(): void {
@@ -14,7 +13,7 @@ function main(): void {
     const date = new Date(2023, 9, 16, 12, 30, 0) // Monday
 
     // Get the customers table who accept the subscription
-    const customers: CustomerModel[] = database.customers
+    const customers: Array<SendEmailBodyProps["customer"]> = database.customers
         .select({
             filters: {
                 subscriptionTier: (value: string) => value === "true",
@@ -24,9 +23,8 @@ function main(): void {
         .map((customer) => {
             return {
                 name: customer.get("name")!,
-                email: customer.get("email")!,
-                subscriptionTier: customer.get("subscriptionTier")!
-            } as CustomerModel
+                email: customer.get("email")!
+            } satisfies SendEmailBodyProps["customer"]
         })
 
     const weekdayFullName = getWeekDayFullName(date, "pt-BR").toLowerCase().trim()
