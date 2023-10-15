@@ -1,4 +1,4 @@
-import { Validators } from "@/lib/db/validators/index.ts"
+import { Validators } from "../validators/index.ts"
 import { InMemoryTable, InMemoryTableModel } from "../in-memory-table.ts"
 
 export interface CustomerModel extends Partial<InMemoryTableModel> {

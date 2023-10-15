@@ -15,6 +15,6 @@ export function createRandomCustomer(): CustomerModel {
         name: person.fullName(options),
         email: faker.internet.email(options).toLowerCase(),
         subscriptionTier: faker.helpers.arrayElement(["true", "false"]),
-        lastVisitAt: faker.date.past({ years: 1, refDate: today }).toISOString()
+        lastVisitAt: faker.date.recent({ days: 60, refDate: today }).toISOString()
     }
 }
