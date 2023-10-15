@@ -29,7 +29,7 @@ interface InMemoryModelQueryFilter {
 }
 
 export class InMemoryTable<T extends Partial<InMemoryTableModel>, U = keyof Omit<T, keyof InMemoryTableModel>> {
-    private data = new Map<UUID, Map<keyof T, string>>()
+    private table = new Map<UUID, Map<keyof T, string>>()
 
     constructor(
         private readonly tableName: string,
@@ -60,7 +60,7 @@ export class InMemoryTable<T extends Partial<InMemoryTableModel>, U = keyof Omit
             .set("createdAt", createdAt)
             .set("updatedAt", updatedAt)
 
-        this.data.set(id, row)
+        this.table.set(id, row)
 
         return id
     }
@@ -68,7 +68,7 @@ export class InMemoryTable<T extends Partial<InMemoryTableModel>, U = keyof Omit
     select(query: InMemoryModelQuery<T>): Array<Map<keyof T, string>> {
         const results: Map<keyof T, string>[] = []
 
-        this.data.forEach((row) => {
+        this.table.forEach((row) => {
             let isValid = true
             for (const [columnName, value] of row) {
                 const condition = query?.filters?.[columnName] ?? ((value: string) => Boolean(value))
@@ -86,7 +86,7 @@ export class InMemoryTable<T extends Partial<InMemoryTableModel>, U = keyof Omit
     }
 
     update(id: UUID, data: Record<U, string>): void {
-        const row = this.data.get(id)
+        const row = this.table.get(id)
         if (!row) throw new Error(`Row ${id} not found`)
 
         for (const [name, options] of this.config.columns) {
@@ -101,15 +101,15 @@ export class InMemoryTable<T extends Partial<InMemoryTableModel>, U = keyof Omit
     }
 
     delete(id: UUID): void {
-        this.data.delete(id)
+        this.table.delete(id)
     }
 
     get(id: UUID): Map<keyof T, string> | undefined {
-        return this.data.get(id)
+        return this.table.get(id)
     }
 
     getAll(): Array<Map<keyof T, string>> {
-        return Array.from(this.data.values())
+        return Array.from(this.table.values())
     }
 
     getTableName(): string {
