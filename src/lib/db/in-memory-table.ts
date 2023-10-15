@@ -2,12 +2,12 @@ import { randomUUID } from "node:crypto"
 import type { UUID } from "node:crypto"
 
 // type UUID `${string}-${string}-${string}-${string}-${string}`;
-type DateTimeString = `${number}-${number}-${number}T${number}:${number}:${number}.${number}Z`;
+type DateTimeString = `${number}-${number}-${number}T${number}:${number}:${number}.${number}Z`
 
 export interface InMemoryTableModel {
-    id: UUID,
-    createdAt: DateTimeString,
-    updatedAt: DateTimeString,
+    id: UUID
+    createdAt: DateTimeString
+    updatedAt: DateTimeString
 }
 
 interface InMemoryTableConfig<K> {
@@ -58,8 +58,8 @@ export class InMemoryTable<T extends Partial<InMemoryTableModel>, U = keyof Omit
         for (const [name, options] of this.config.columns) {
             if (Reflect.has(data, String(name))) {
                 const value = Reflect.get(data, String(name))
-                if (options.validators?.every(validator => validator(value))) row.set(name as keyof T, value)
-                else throw new Error(`Invalid value for column ${name}: ${value}`)
+                if (options.validators?.every((validator) => validator(value))) row.set(name as keyof T, value)
+                else throw new TypeError(`Invalid value for column ${name}: ${value}`)
             } else if (options.defaultValue) {
                 row.set(name as keyof T, options.defaultValue())
             } else {
@@ -119,7 +119,7 @@ export class InMemoryTable<T extends Partial<InMemoryTableModel>, U = keyof Omit
         for (const [name, options] of this.config.columns) {
             if (Reflect.has(data, String(name))) {
                 const value = Reflect.get(data, String(name))
-                if (options.validators?.every(validator => validator(value))) row.set(name as keyof T, value)
+                if (options.validators?.every((validator) => validator(value))) row.set(name as keyof T, value)
                 else throw new TypeError(`Invalid value for column ${name}: ${value}`)
             }
         }
