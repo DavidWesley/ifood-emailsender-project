@@ -1,5 +1,7 @@
-import { customers } from "@/lib/db/models/customers.ts"
+import { customers } from "./models/customers.ts"
+import { vehicles } from "./models/vehicle.ts"
 
 export const database = {
-    customers
+    customers,
+    vehicles,
 }
