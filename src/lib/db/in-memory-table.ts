@@ -100,6 +100,18 @@ export class InMemoryTable<T extends Partial<InMemoryTableModel>, U = keyof Omit
             if (isValid) results.push(row)
         })
 
+        if (query.columns?.length) {
+            return results.map((row) => {
+                const formattedRow = new Map<keyof T, string>()
+
+                for (const name of query.columns ?? []) {
+                    if (row.has(name)) formattedRow.set(name, row.get(name)!)
+                }
+
+                return formattedRow
+            })
+        }
+
         return results
     }
 
@@ -174,4 +186,3 @@ export class InMemoryTable<T extends Partial<InMemoryTableModel>, U = keyof Omit
         return this.config.columns.map(([name]) => name)
     }
 }
-
