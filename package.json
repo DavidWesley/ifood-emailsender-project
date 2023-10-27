@@ -1,26 +1,46 @@
 {
   "name": "email-sender",
-  "version": "0.0.1",
+  "version": "0.0.0-development",
   "description": "Simple conceptual email sender written in Typescript",
   "private": "true",
   "type": "module",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">= 18"
+  },
   "scripts": {
-    "test": "",
+    "build": "tsup",
+    "test": "vitest --watch false",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint",
     "lint:fix": "eslint . --ext .js,.ts --fix",
     "lint:all": "eslint src --ext .js,.ts --max-warnings=0 --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "semantic-release": "semantic-release"
   },
   "author": {
     "name": "David Wesley",
     "email": "contato.dwesley@outlook.com",
     "url": "https://github.com/DavidWesley"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DavidWesley/emailsender.git"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  },
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^17.8.0",
     "@commitlint/config-conventional": "^17.8.0",
     "@faker-js/faker": "^8.1.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@tsconfig/strictest": "^2.0.2",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",
@@ -28,7 +48,11 @@
     "eslint": "^8.51.0",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
+    "semantic-release": "^22.0.5",
+    "tsup": "^7.2.0",
     "tsx": "^3.13.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vite-tsconfig-paths": "^4.2.1",
+    "vitest": "^0.34.6"
   }
 }
