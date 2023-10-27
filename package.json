@@ -1,6 +1,6 @@
 {
   "name": "email-sender",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "Simple conceptual email sender written in Typescript",
   "private": "true",
   "type": "module",
