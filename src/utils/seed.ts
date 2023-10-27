@@ -1,4 +1,4 @@
-import { database } from "@/lib/db/db.ts"
+import { database } from "@/database/database.ts"
 import { createRandomCustomer } from "@/utils/create-customers.ts"
 import { createRandomVehicle } from "@/utils/create-vehicles.ts"
 

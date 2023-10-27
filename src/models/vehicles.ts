@@ -1,5 +1,5 @@
-import { InMemoryTable, InMemoryTableModel } from "../in-memory-table.ts"
-import { Validators } from "../validators/index.ts"
+import { InMemoryTable, InMemoryTableModel } from "../lib/in-memory-table/in-memory-table.ts"
+import { Validators } from "../lib/in-memory-table/validators/validators.ts"
 
 export interface VehicleModel extends Partial<InMemoryTableModel> {
     model: string
@@ -21,6 +21,6 @@ export const vehicles = new InMemoryTable<VehicleModel>("vehicles", {
         ["year", { validators: [Validators.isNumber] }],
         ["mark", { validators: [Validators.isValidName] }],
         ["price", { validators: [Validators.isNumber] }],
-        ["features", { validators: [Validators.isArray] }]
-    ]
+        ["features", { validators: [Validators.isArray] }],
+    ],
 })

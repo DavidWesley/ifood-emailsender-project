@@ -1,4 +1,4 @@
-import type { CustomerModel } from "@/lib/db/models/customers.ts"
+import type { CustomerModel } from "@/models/customers.ts"
 import { EOL } from "node:os"
 
 export interface SendEmailBodyProps {

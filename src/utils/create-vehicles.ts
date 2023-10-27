@@ -1,5 +1,5 @@
 import { faker } from "@/lib/faker.ts"
-import type { VehicleModel } from "@/lib/db/models/vehicle.ts"
+import type { VehicleModel } from "@/models/vehicles.ts"
 
 export function createRandomVehicle(): VehicleModel {
     const vehicle = faker.vehicle
@@ -23,7 +23,7 @@ export function createRandomVehicle(): VehicleModel {
         "Four-Wheel Drive (4WD) or All-Wheel Drive (AWD)",
         "Hybrid or Electric Powertrain",
         "Turbocharged or Supercharged Engines",
-        "Remote Start"
+        "Remote Start",
     ]
 
     const today = new Date().toISOString()
@@ -36,6 +36,6 @@ export function createRandomVehicle(): VehicleModel {
         year: faker.date.past({ years: 5, refDate: today }).getUTCFullYear().toString(),
         mark: vehicle.vrm(),
         price: faker.number.float({ min: 1e4, max: 1e6, precision: 2 }).toString(10),
-        features: JSON.stringify(faker.helpers.arrayElements(commonCarFeatures, { min: 1, max: 4 }))
+        features: JSON.stringify(faker.helpers.arrayElements(commonCarFeatures, { min: 1, max: 4 })),
     }
 }

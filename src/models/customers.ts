@@ -1,5 +1,5 @@
-import { Validators } from "../validators/index.ts"
-import { InMemoryTable, InMemoryTableModel } from "../in-memory-table.ts"
+import { Validators } from "../lib/in-memory-table/validators/validators.ts"
+import { InMemoryTable, InMemoryTableModel } from "../lib/in-memory-table/in-memory-table.ts"
 
 export interface CustomerModel extends Partial<InMemoryTableModel> {
     name: string
@@ -13,6 +13,6 @@ export const customers = new InMemoryTable<CustomerModel>("customers", {
         ["name", { validators: [Validators.isValidName] }],
         ["email", { validators: [Validators.isEmail] }],
         ["subscriptionTier", { validators: [Validators.isBoolean] }],
-        ["lastVisitAt", { validators: [Validators.isDateTimeString] }]
-    ]
+        ["lastVisitAt", { validators: [Validators.isDateTimeString] }],
+    ],
 })
