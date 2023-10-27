@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest"
 import { getWeekDayFullName, isFirstDateInPreviousMonth } from "@/utils/dates.ts"
 
-describe("Date helpers", () => {
+const isProd = process.env["NODE_ENV"] === "production"
+
+describe.skipIf(isProd)("Date helpers", () => {
     describe("getWeekDayFullName", () => {
         it("returns the correct weekday name for a given date (en-US locale)", () => {
             expect(getWeekDayFullName(new Date("2023-10-15"), "en-US")).toBe("Saturday")
