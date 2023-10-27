@@ -6,14 +6,14 @@ const isProd = process.env["NODE_ENV"] === "production"
 describe.skipIf(isProd)("Date helpers", () => {
     describe("getWeekDayFullName", () => {
         it("returns the correct weekday name for a given date (en-US locale)", () => {
-            expect(getWeekDayFullName(new Date("2023-10-15"), "en-US")).toBe("Saturday")
-            expect(getWeekDayFullName(new Date("2023-10-16"), "en-US")).toBe("Sunday")
+            expect(getWeekDayFullName(new Date("2023-10-15T12:00:00"), "en-US")).toBe("Sunday")
+            expect(getWeekDayFullName(new Date("2023-10-16T12:00:00"), "en-US")).toBe("Monday")
             // TODO: Add more test cases for en-US locale
         })
 
         it("returns the correct weekday name for a given date (pt-BR locale)", () => {
-            expect(getWeekDayFullName(new Date("2023-10-15"), "pt-BR")).toBe("sábado")
-            expect(getWeekDayFullName(new Date("2023-10-16"), "pt-BR")).toBe("domingo")
+            expect(getWeekDayFullName(new Date("2023-10-15T12:00:00"), "pt-BR")).toBe("domingo")
+            expect(getWeekDayFullName(new Date("2023-10-16T12:00:00"), "pt-BR")).toBe("segunda-feira")
             // TODO: Add more test cases for pt-BR locale
         })
     })
